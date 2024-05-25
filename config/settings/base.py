@@ -46,7 +46,8 @@ DJANGO_APPS = [
     "apps.user",
     "apps.customtags",
     "apps.surface",
-    "apps.flight"
+    "apps.flight",
+    "apps.wire"
 ]
 
 THIRD_PARTY_APPS = []

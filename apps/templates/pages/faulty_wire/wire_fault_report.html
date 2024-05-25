@@ -22,22 +22,22 @@
             <table class="table table-striped">
                 <thead class="rep">
                     <tr>
-                        <th>Wire Modules</th>
-                        <th>Location</th>
-                        <th>Status</th>
-
-                        <th>Report</th>
+                        <th>Fault Detected</th>
+                        <th>Component Name</th>
+                        <th>Fault</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for %}
-                    <tr class="dets">
-                        <td>Router</td>
-                        <td>Front Section</td>
-                        <td>Normal</td>
-                        <td><a href="#">View Report</a></td>
-
-                    </tr>
+                    {% for i in wire_fault_list %}
+                        <tr class="dets">
+                            <td>{{ i.fault_detected }}</td>
+                            <td>{{ i.component_name }}</td>
+                            <td>{{ i.fault }}</td>
+                            <td>{{ i.description }}</td>
+                        </tr>
+                    {% endfor %}
+                    <!-- Add more rows as needed -->
                 </tbody>
             </table>
         </div>

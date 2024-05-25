@@ -73,7 +73,6 @@ class SurfaceDamageDetectionListView(
     context_object_name = "surface_damage_list"
     parent = "surface_detection"
     segment = "surface_report"
-    paginate_by = 6
 
 
 class SurfaceDamageDetectionDetailView(
@@ -84,7 +83,6 @@ class SurfaceDamageDetectionDetailView(
     context_object_name = "surface_damage_list"
     parent = "surface_detection"
     segment = "surface_report"
-    paginate_by = 6
 
     def get_queryset(self):
         queryset =  super().get_queryset()

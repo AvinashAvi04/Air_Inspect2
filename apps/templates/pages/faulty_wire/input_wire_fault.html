@@ -20,16 +20,14 @@
     margin-bottom: 10px;
   }
 
-  .button,
-  .submit-button {
+  .button, .submit-button {
     display: inline-block;
     padding: 10px;
     background: #ccc;
     cursor: pointer;
   }
 
-  .button:hover,
-  .submit-button:hover {
+  .button:hover, .submit-button:hover {
     background: #ddd;
   }
 
@@ -40,11 +38,9 @@
     border-top: 16px solid #3498db;
     width: 120px;
     height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    /* Safari */
+    -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
-    display: none;
-    /* Hidden by default */
+    display: none; /* Hidden by default */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -54,13 +50,8 @@
 
   /* Animation for loader */
   @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>
 <meta name="csrf-token" content="{{ csrf_token }}">
@@ -75,12 +66,12 @@
           <div class="row align-items-center">
             <div class="col">
               <div class="page-header-title">
-                <h5 class="m-b-10">Fault detection</h5>
+                <h5 class="m-b-10">Wire Damage</h5>
               </div>
               <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}"><i class="feather icon-home"></i></a>
                 </li>
-                <li class="breadcrumb-item">Surface Input<a href="javascript:"></a></li>
+                <li class="breadcrumb-item">Wire Input<a href="javascript:"></a></li>
               </ul>
             </div>
           </div>
@@ -100,7 +91,7 @@
       </div>
       <div class="card-block">
         {% if error %}
-        <div class="alert alert-danger" role="alert">{{ error }}</div>
+          <div class="alert alert-danger" role="alert">{{ error }}</div>
         {% endif %}
         <div class="upload-container" style="text-align: center; padding: 20px;">
           <div id="drop-area">
@@ -122,7 +113,7 @@
 </div>
 
 <script>
-  document.querySelector('.my-form').addEventListener('submit', function (e) {
+  document.querySelector('.my-form').addEventListener('submit', function(e) {
     e.preventDefault();
     document.getElementById('loader').style.display = 'block';
     const formData = new FormData(this);
@@ -133,7 +124,7 @@
     console.log("BADO BADI")
     console.log(pathSegments);
     console.log("BADO BADI")
-    fetch(`/surface/detection/create/${id}/`, {
+    fetch(`/wire/detection/${id}/`, {
       method: 'POST',
       body: formData,
       headers: {
@@ -143,15 +134,15 @@
       console.log(response)
       return response.json();
     }).then(data => {
-      if (data.error) {
+      if(data.error){
         console.error('Error:', data.error);
         document.getElementById('loader').style.display = 'none';
         alert(error);
       }
-      else {
+      else{
         document.getElementById('loader').style.display = 'none';
         alert("success");
-        window.location.href = '/surface/detection/list/';
+        window.location.href = '/wire/detection/list/';
       }
     }).catch(error => {
       console.error('Error:', error);

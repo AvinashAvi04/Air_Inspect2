@@ -1,0 +1,82 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damage Report Table</title>
+    <style>
+        .heading {
+            color: #333;
+            font-size: 24px;
+            margin: 10px 0 20px;
+        }
+
+        table {
+            width: 90%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e1f5fe;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="heading">Report Details</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Damage Type</th>
+                    <th>Level</th>
+                    <th>Part</th>
+                    <th>Repair Status</th>
+                    <th>Recommendation</th>
+                    <th>Repair Done</th> <!-- New column for checkboxes -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in surface_damage_list %}
+                <tr>
+                    <td>{{ i.damage_type }}</td>
+                    <td>{{ i.level }}</td>
+                    <td>{{ i.part }}</td>
+                    <td>{{ i.repair_status }}</td>
+                    <td>Apply touch-up paint</td>
+                    <td> <button type="submit" class="btn btn-primary">Confirm Repairs</button></td>
+                    <!-- Checkbox for each row -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</body>
+
+</html>
+{% endblock content %}

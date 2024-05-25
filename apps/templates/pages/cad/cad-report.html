@@ -1,0 +1,56 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .rep {
+        color: black;
+        font-size: bold;
+    }
+
+    .dets:hover {
+        color: black;
+    }
+</style>
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>Report</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="rep">
+                    <tr>
+                        <th>Flight Name</th>
+                        <th>FIN</th>
+                        <th>Location</th>
+                        <th>Model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dets">
+                        <td>Indigo</td>
+                        <td>354</td>
+                        <td>Checked</td>
+                        <td><a href="#">View Model</a></td>
+                    </tr>
+                    <tr class="dets">
+                        <td>Air Asia</td>
+                        <td>897</td>
+                        <td>Pending</td>
+                        <td><a href="#">View Model</a></td>
+                    </tr>
+                    <tr class="dets">
+                        <td>Spice Jet</td>
+                        <td>456</td>
+                        <td>Delayed</td>
+                        <td><a href="#">View Model</a></td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .rep {
+        color: black;
+        font-size: bold;
+    }
+
+    .dets:hover {
+        color: black;
+    }
+</style>
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>Report</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="rep">
+                    <tr>
+                        <th>Wire Modules</th>
+                        <th>Location</th>
+                        <th>Status</th>
+
+                        <th>Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for %}
+                    <tr class="dets">
+                        <td>Router</td>
+                        <td>Front Section</td>
+                        <td>Normal</td>
+                        <td><a href="#">View Report</a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,163 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  #drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 90%;
+    margin: 10px auto;
+    padding: 20px;
+  }
+
+  #drop-area.highlight {
+    border-color: purple;
+  }
+
+  .my-form {
+    margin-bottom: 10px;
+  }
+
+  .button,
+  .submit-button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+  }
+
+  .button:hover,
+  .submit-button:hover {
+    background: #ddd;
+  }
+
+  /* Loader CSS */
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+
+  /* Animation for loader */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<meta name="csrf-token" content="{{ csrf_token }}">
+<div class="loader" id="loader"></div> <!-- Loader element -->
+
+<div class="container">
+  <div class="row justify-content-between align-items-center">
+    <!-- Page Header on the left -->
+    <div class="col-md">
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col">
+              <div class="page-header-title">
+                <h5 class="m-b-10">Fault detection</h5>
+              </div>
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}"><i class="feather icon-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">Surface Input<a href="javascript:"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button on the right -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <h5>Upload Data</h5>
+      </div>
+      <div class="card-block">
+        {% if error %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endif %}
+        <div class="upload-container" style="text-align: center; padding: 20px;">
+          <div id="drop-area">
+            <form class="my-form" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <p>Upload an image by dragging & dropping or by selecting one</p>
+              <input type="file" name="image" id="fileElem" multiple accept="image/*"
+                style="width: 90%; height: 50px; border: 2px solid #ccc; padding: 10px; margin-bottom: 20px; cursor: pointer; border-radius: 5px; color: #007BFF; background-color: white; display: block; margin-right: auto; margin-right: auto; text-align: center;">
+              <button type="submit" class="submit-button"
+                style="padding: 8px 16px; background-color:#007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; width: 30%; margin-top: 10px;">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector('.my-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('loader').style.display = 'block';
+    const formData = new FormData(this);
+    const url = window.location.href;
+    console.log(url);
+    const pathSegments = url.split('/').filter(segment => segment);
+    const id = pathSegments[pathSegments.length - 1];
+    console.log("BADO BADI")
+    console.log(pathSegments);
+    console.log("BADO BADI")
+    fetch(`/surface/detection/create/${id}/`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}'
+      }
+    }).then(response => {
+      console.log(response)
+      return response.json();
+    }).then(data => {
+      if (data.error) {
+        console.error('Error:', data.error);
+        document.getElementById('loader').style.display = 'none';
+        alert(error);
+      }
+      else {
+        document.getElementById('loader').style.display = 'none';
+        alert("success");
+        window.location.href = '/surface/detection/list/';
+      }
+    }).catch(error => {
+      console.error('Error:', error);
+      document.getElementById('loader').style.display = 'none';
+      alert(error);
+    });
+  });
+</script>
+{% endblock content %}
